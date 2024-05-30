@@ -146,6 +146,54 @@ fn main() -> Result<()> {
     }
 }
 
+enum Shell {
+    ZSH,
+    FISH,
+    BASH,
+}
+
+struct ShellOperator;
+impl ShellOperator {
+    pub fn install(shell_type: Shell) {
+        match shell_type {
+            Shell::ZSH => ShellOperator::install_zsh(),
+            Shell::FISH => ShellOperator::install_fish(),
+            Shell::BASH => ShellOperator::install_bash(),
+        }
+    }
+    pub fn uninstall(shell_type: Shell) {
+        match shell_type {
+            Shell::ZSH => ShellOperator::uninstall_zsh(),
+            Shell::FISH => ShellOperator::uninstall_fish(),
+            Shell::BASH => ShellOperator::uninstall_bash(),
+        }
+    }
+    pub fn postexec(shell_type: Shell) {
+        match shell_type {
+            Shell::ZSH => ShellOperator::postexec_zsh(),
+            Shell::FISH => ShellOperator::postexec_fish(),
+            Shell::BASH => ShellOperator::postexec_bash(),
+        }
+    }
+    fn install_fish() {}
+
+    fn install_zsh() {}
+
+    fn install_bash() {}
+
+    fn uninstall_fish() {}
+
+    fn uninstall_zsh() {}
+
+    fn uninstall_bash() {}
+
+    fn postexec_fish() {}
+
+    fn postexec_zsh() {}
+
+    fn postexec_bash() {}
+}
+
 fn init_error_hooks() -> Result<()> {
     let (panic, error) = HookBuilder::default().into_hooks();
     let panic = panic.into_panic_hook();
